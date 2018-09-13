@@ -33,13 +33,23 @@ class Post {
 		return $db;
 	} 
 
-	public function Create(){
+	public function create(){
 
 		$db = $this->dbConnect();
 		$prepare = $db->prepare('INSERT INTO posts (title,content,post_date) VALUES (?, ?, NOW())');
 		$post = $prepare->execute(array($this->_title, $this->_content));
 
 		return $post;
+
+	}
+
+	public function delete (){
+
+		$db = $this->dbConnect();
+		$prepare = $db->prepare('DELETE FROM posts WHERE title=?');
+		$postDelete = $prepare->execute(array($this->_title));
+		
+		return $postDelete; 
 
 	}
 }
