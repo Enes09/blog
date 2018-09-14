@@ -36,7 +36,7 @@ class Post {
 	public function create(){
 
 		$db = $this->dbConnect();
-		$prepare = $db->prepare('INSERT INTO posts (title,content,post_date) VALUES (?, ?, NOW())');
+		$prepare = $db->prepare('INSERT INTO posts (title,content,post_date,last_update_date) VALUES (?, ?, NOW(), NOW())');
 		$post = $prepare->execute(array($this->_title, $this->_content));
 
 		return $post;
@@ -52,5 +52,47 @@ class Post {
 		return $postDelete; 
 
 	}
+
+	public function update (){
+
+		$db = $this->dbConnect();
+		$prepare = $db->prepare('UPDATE posts SET title= ?, content= ?, last_update_date= NOW()');
+		$update = $prepare->execute(array($this->_title, $this->_content));
+
+		return $update;
+
+	}
+
+	public function postList(){
+
+		$db = $this->dbConnect();
+		$postList = $db->query('SELECT id,title, content, post_date, last_update_date FROM posts ORDER BY id DESC ');
+
+		return $postList;
+
+		#la partie en dessous devra être effectuer dans la vue
+
+		#while($data = $postList->fetch()){
+		#	echo "<p>" . $data['title'] . $data['content']. $data['post_date']. $data['last_update_date']. "</p> ";
+		#}
+
+	}
+
+	public function display (){
+		# ce diplay permet d'afficher un seul id pour éventuellement voir les commentaires en dessous de celui-ci
+
+		$db = $this->dbConnect();
+		$postList = $db->query('SELECT title, content FROM posts WHERE id=4');
+
+		return $postList;
+
+
+		# fetch en vue ...
+		#while($data = $postList->fetch()){
+		#	echo "<p>" . $data['title'] . $data['content'] ."</p> ";
+		#}
+	}
+
+	
 }
 
