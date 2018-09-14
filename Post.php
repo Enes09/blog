@@ -78,11 +78,12 @@ class Post {
 
 	}
 
-	public function display (){
+	public function display ($postId){
 		# ce diplay permet d'afficher un seul id pour éventuellement voir les commentaires en dessous de celui-ci
 
 		$db = $this->dbConnect();
-		$postList = $db->query('SELECT title, content FROM posts WHERE id=4');
+		$prepare = $db->prepare('SELECT title, content FROM posts WHERE id=?');
+		$postList = $prepare->execute(array($postId))
 
 		return $postList;
 
