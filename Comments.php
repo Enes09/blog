@@ -122,7 +122,7 @@ class Comment {
 
 	}
 
-	public function validation($id){
+	public function validate($id){
 		
 		$db = $this->dbConnect();
 		$validate = $db->query('UPDATE comments SET validation = 85 WHERE id = '. $id );
@@ -131,7 +131,7 @@ class Comment {
 	}
 
 	public function selectComment(){
-		$this->_id = $_POST['id'];
+		$this->_id = $_GET['id'];
 	}
 
 }
