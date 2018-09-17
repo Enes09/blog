@@ -4,7 +4,7 @@ class Comment {
 	public $_author;
 	public $_content;
 	public $_post_id;
-
+	public $_id;
 
 
 	public function __construct($author, $content, $postId){
@@ -12,7 +12,7 @@ class Comment {
 		$this->setAuthor($author);
 		$this->setContent($content);
 		$this->setPostId($postId);
-
+		
 	}
 
 	public function setAuthor($author){
@@ -57,6 +57,8 @@ class Comment {
 			}
 	}
 
+	
+
 	public function dbConnect (){
 
 		$db = new PDO ('mysql:host=localhost;dbname=blog','root','',array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
@@ -72,11 +74,11 @@ class Comment {
 		return $comment;
 	}
 
-	public function delete(){
+	public function delete($id){
 
 		$db = $this->dbConnect();
-		$prepare = $db->prepare('DELETE FROM comments WHERE author = ?');
-		$deleteComment = $prepare->execute(array($this->_author));
+		$prepare = $db->prepare('DELETE FROM comments WHERE id = ?');
+		$deleteComment = $prepare->execute(array($id));
 
 		return $deleteComment;
 
@@ -85,22 +87,53 @@ class Comment {
 	public function listComment($postId){
 
 		$db = $this->dbConnect();
-		$commentList = $db->query('SELECT author, content, comment_date FROM comments WHERE post_id = ' .$postId.' ORDER BY id DESC');
+		$commentList = $db->query('SELECT author, content, comment_date, id  FROM comments WHERE post_id = ' .$postId.' ORDER BY id DESC');
 		
-		while($data = $commentList->fetch()){
+		#while($data = $commentList->fetch()){
 
-			echo "<p>". $data['author'] . $data['content'] . $data['comment_date'] . "</p>";
-		}
+			#echo "<p>". $data['author'].' '.$data['content'].' '.$data['comment_date'] .' '.$data['id']. "</p>";
+	
+		#}
 
 		return $commentList;
 
 	}
 
+	public function alert($id){
+
+		$db = $this->dbConnect();
+		$data = $db->query('SELECT validation FROM comments WHERE id = '.$id);
+		$checkValidation = $data['validation'];
+
+
+		if($checkValidation > 0)
+			{
+
+				$alert = $db->query('UPDATE comments SET alert = alert + 1 WHERE id = '.$id);
+
+			}
+		else
+			{
+				throw new Exception("La vérification de la possibilité d'alerter ce message a échoué.");
+				
+			}
+
+		return $alert;
+
+	}
+
+	public function validation($id){
+		
+		$db = $this->dbConnect();
+		$validate = $db->query('UPDATE comments SET validation = 85 WHERE id = '. $id );
+
+		return $validate;
+	}
+
+	public function selectComment(){
+		$this->_id = $_POST['id'];
+	}
+
 }
 
 
-
-
-$object = new Comment("egzoz borusu faruk", "bugun yine macera pesindeyim", 1);
-
-$object->listComment(1);
