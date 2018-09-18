@@ -1,12 +1,43 @@
 <?php 
-require('Comments.php');
-require('Post.php');
-
-class Administrator extends Post {
+class Administrator {
 
 	public $_login;
 	public $_password;
 	
+
+	public function __construct($login, $password){
+
+		$this->setLogin($login);
+		$this->setPassword($password);
+	}
+
+	public function setLogin ($login){
+
+		if(strlen($login) <= 255)
+			{
+				$this->_login = $login;
+			}
+		else
+			{
+				throw new Exception("Le login ou le mot de passe est incorrecte.");
+				
+			}
+		
+	}
+
+	public function setPassword ($password){
+		if(strlen($password))
+			{
+				$this->_password = $password;
+			}
+		else
+			{
+				throw new Exception("Le login ou le mot de passe est incorrecte.");
+				
+			}
+		
+	}
+
 
 	public function dbConnect (){
 
@@ -17,18 +48,37 @@ class Administrator extends Post {
 	public function passControl (){
 
 		$db = $this->dbConnect();
-		$prepare = $db->prepare('SELECT login, password FROM users WHERE login = :login ');
-		$passControl = $prepare->execute(array('login'=>$this->_login));
+		$passControl = $db->prepare('SELECT login, password FROM users WHERE login = :login ');
+		$passControl->execute(array('login'=>$this->_login));
+
+		$data = $passControl->fetch();
+		echo $data['login'];
 
 		return $passControl;
+		#verification au niveau du controller
 	}
 
 	public function connection (){
+
 		session_start();
 		$_SESSION['login'] = $this->_login;
 		$_SESSION['password'] = $this->_password;
+
 	}
 
+	public function cookie (){
 
+		setcookie('login', $this->_login, time() + 365*24*3600, null, null, false, true);
+		setcookie('password', $this->password, time() + 365*24*3600, null, null, false, true);
+
+	}
+
+	public function disconnection (){
+
+		$_SESSION = array();
+		session_destroy();
+
+	}
 
 } 
+
