@@ -77,8 +77,8 @@ class Comment {
 	public function delete($id){
 
 		$db = $this->dbConnect();
-		$prepare = $db->prepare('DELETE FROM comments WHERE id = ?');
-		$deleteComment = $prepare->execute(array($id));
+		$deleteComment = $db->prepare('DELETE FROM comments WHERE id = ?');
+		$deleteComment->execute(array($id));
 
 		return $deleteComment;
 
