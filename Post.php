@@ -56,8 +56,8 @@ class Post {
 	public function update (){
 
 		$db = $this->dbConnect();
-		$prepare = $db->prepare('UPDATE posts SET title= ?, content= ?, last_update_date= NOW()');
-		$update = $prepare->execute(array($this->_title, $this->_content));
+		$update = $db->prepare('UPDATE posts SET title= ?, content= ?, last_update_date= NOW()');
+		$update->execute(array($this->_title, $this->_content));
 
 		return $update;
 
@@ -79,6 +79,7 @@ class Post {
 	}
 
 	public function display ($postId){
+
 		# ce diplay permet d'afficher un seul id pour éventuellement voir les commentaires en dessous de celui-ci
 
 		$db = $this->dbConnect();
@@ -86,13 +87,23 @@ class Post {
 
 		return $postList;
 
-
 		# fetch en vue ...
 		#while($data = $postList->fetch()){
 		#	echo "<p>" . $data['title'] . $data['content'] ."</p> ";
 		#}
+
 	}
+
+	public function countPost (){
+
+		$db = $this->dbConnect();
+		$postNumber = $db->prepare('SELECT count(?) FROM posts');
+		$postNumber->execute(array("id"));
+
+		return $postNumber;
+	}
+
+
 
 	
 }
-
