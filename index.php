@@ -1,20 +1,32 @@
 <?php
-session_start();
-$_SESSION['login'] = null;
 
-
-
-if( $_SESSION['login'] !== null )
+if( isset($_GET['id']) )
 	{
 
-		#appel le controller du backend sensé afficher le backend avec le dashbord
-		#require('backend.php');
+		if(isset($_GET['action'] ))
+			{
 
+				if($_GET['action'] === "addComment")
+					{
+
+					require('controller/commentFrontend.php'); createComment($_POST['author'], $_POST['content'], $_GET['id']);
+					}
+
+				else if($_GET['action'] === "alert")
+					{
+						require('controller/commentFrontend.php'); alertComment($_GET['id']);
+					}
+			}
+						
+			
+
+		require('controller/commentFrontend.php'); displayPostComments($_GET['id']);
 	}
+
 else
 	{
-		
-		#appel le controller du frontend qui lui va faire la liason entre le model et la vue correspondante
-		require('frontend.php');
-
+		require('controller/postFrontend.php'); postsList();
 	}
+
+
+
