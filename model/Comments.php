@@ -131,3 +131,5 @@ class Comment {
 
 }
 
+/*$test = new Comment("init", "init", 0);
+$test->alert(33);*/

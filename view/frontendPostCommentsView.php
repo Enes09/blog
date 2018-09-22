@@ -36,10 +36,37 @@ while($commentsData = $commentsList->fetch()){
 	?>
 
 	<div style="border:solid; width: 50%; margin-top: 2%; margin-left: 10%;" >
-		<h3> <?= $commentsData['author'] ?> </h3>
-		<p> <?= $commentsData['content'] ?> </p>
-		<p> <?= $commentsData['comment_date'] ?> </p>
-		<a href="index.php?commentId=<?= $commentsDatata['id'] ?>">Signaler</a>
+		
+		<?php 
+
+		$cookieName = "commentId".strval($commentsData['id']);
+
+		if(isset($_COOKIE[$cookieName]) && $_COOKIE[$cookieName] === $commentsData['id']){ 
+		?>
+			<h3> <?= $commentsData['author'] ?> </h3>
+			<p> <?= $commentsData['content'] ?> </p>
+			<p> <?= $commentsData['comment_date'] ?> </p>
+			<p>Vous avez signaler ce message.</p>
+
+		<?php	
+
+			}
+		else
+			{
+
+		?>
+			<h3> <?= $commentsData['author'] ?> </h3>
+			<p> <?= $commentsData['content'] ?> </p>
+			<p> <?= $commentsData['comment_date'] ?> </p>
+
+			<a href="index.php?commentId=<?= $commentsData['id'] ?>&amp;id=<?= $_GET['id'] ?>&amp;pseudo=<?= $commentsData['author'] ?>">Signaler</a>
+
+		<?php
+
+			}
+
+		?>
+
 	</div>
 
 <?php

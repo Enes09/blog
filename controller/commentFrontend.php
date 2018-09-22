@@ -32,11 +32,17 @@ function createComment ($author, $content, $postId){
 	header("Location:index.php?id=".$postId);
 }
 
-function alertComment($id){
+
+function alertComment($id, $postId, $pseudo){
 
 	$comment = new Comment("init", "init", 0);
 	$comment->alert($id);
 
-	header("Location:index.php?id = " . $id);
+	$cookieName = "commentId".strval($id);
+	setcookie($cookieName, $id, time() + 365*24*3600, null, null, false, true); 
 
-}
+	header("Location:index.php?id=". $postId);
+
+	}
+
+?>
