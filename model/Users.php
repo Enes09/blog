@@ -52,9 +52,9 @@ class Administrator {
 		$passControl->execute(array('login'=>$this->_login));
 
 		$data = $passControl->fetch();
-		echo $data['login'];
+	
 
-		return $passControl;
+		return $data;
 		#verification au niveau du controller
 	}
 
@@ -62,7 +62,6 @@ class Administrator {
 
 		session_start();
 		$_SESSION['login'] = $this->_login;
-		$_SESSION['password'] = $this->_password;
 
 	}
 
@@ -81,4 +80,6 @@ class Administrator {
 	}
 
 } 
+
+
 
