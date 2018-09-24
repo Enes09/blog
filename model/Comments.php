@@ -87,14 +87,9 @@ class Comment {
 	public function listComment($postId){
 
 		$db = $this->dbConnect();
-		$commentList = $db->prepare('SELECT author, content, comment_date, id  FROM comments WHERE post_id = ? ORDER BY id DESC');
+		$commentList = $db->prepare('SELECT author, content, comment_date, id, validation  FROM comments WHERE post_id = ? ORDER BY id DESC');
 		$commentList->execute(array($postId));
 		
-		#while($data = $commentList->fetch()){
-
-			#echo "<p>". $data['author'].' '.$data['content'].' '.$data['comment_date'] .' '.$data['id']. "</p>";
-	
-		#}
 
 		return $commentList;
 	}
@@ -102,21 +97,10 @@ class Comment {
 	public function alert($id){
 
 		$db = $this->dbConnect();
-		/*$data = $db->prepare('SELECT validation FROM comments WHERE id = ?');
-		$data->execute(array($id));
-		$checkValidation = $data['validation'];*/
 
 		$alert = $db->prepare('UPDATE comments SET alert = alert + 1 WHERE id = ?');
 		$alert->execute(array($id));
 
-		/*if($checkValidation < 0)
-			{
-				throw new Exception("La vérification de la possibilité d'alerter ce message a échoué.");
-			}
-		else
-			{
-				$alert = $db->query('UPDATE comments SET alert = alert + 1 WHERE id = '.$id);
-			}*/
 
 		return $alert;
 	}
@@ -124,12 +108,10 @@ class Comment {
 	public function validate($id){
 		
 		$db = $this->dbConnect();
-		$validate = $db->query('UPDATE comments SET validation = 85 WHERE id = '. $id );
+		$validate = $db->query('UPDATE comments SET validation = 1 WHERE id = '. $id );
 
 		return $validate;
 	}
 
 }
 
-/*$test = new Comment("init", "init", 0);
-$test->alert(33);*/

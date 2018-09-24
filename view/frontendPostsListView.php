@@ -9,9 +9,9 @@
 while($postData = $listOfPost->fetch()){
 	?>
 	<div style="border:solid; width: 50%; margin: 2%;">
-		<h3> <?= $postData['title'] ?>     </h3>
-		<p>  <?= $postData['content'] ?>   </p>
-		<p>  <?= $postData['post_date'] ?> </p>
+		<h3> <?= htmlspecialchars($postData['title']) ?>     </h3>
+		<p>  <?= htmlspecialchars($postData['content']) ?>   </p>
+		<p>  <?= htmlspecialchars($postData['post_date']) ?> </p>
 		<a href="index.php?id=<?= $postData['id'] ?>">Commentaires</a>
 	</div>
 

@@ -9,17 +9,25 @@ function displayPostComments ($postId){
 	$displayPost = $post->display($postId);
 
 	$check = $post->checkPost($postId);
+try{
+	if($check)
+		{
 
-	if($check){
+			$comments = new Comment("init","init",0);
+			$commentsList = $comments->listComment($postId);
+			require('view/frontendPostCommentsView.php');
+		}
+	else
+		{
 
-		$comments = new Comment("init","init",0);
-		$commentsList = $comments->listComment($postId);
-		require('view/frontendPostCommentsView.php');
+			throw new Exception("Nous n'avons pas retrouvé le billet correspondant.");
+			
+		}
 	}
-	else{
-
-		throw new Exception("Nous n'avons pas retrouvé le billet correspondant.");
-		
+catch(Exception $e)
+	{
+		$errorMessage = 'Erreur : '.$e->getMessage();
+		require('view/errorView.php');
 	}
 	
 }
@@ -27,9 +35,30 @@ function displayPostComments ($postId){
 function createComment ($author, $content, $postId){
 
 	$comment = new Comment($author, $content, $postId);
-	$comment->create();
+	$post = new Post("init", "init");
 
-	header("Location:index.php?id=".$postId);
+	$check = $post->checkPost($postId);
+
+try{
+	if($check)
+		{
+
+			$comment->create();
+
+			header("Location:index.php?id=".$postId);
+		}
+	else
+		{
+			throw new Exception("Nous n'avons pas retrouvé le billet correspondant.");
+			
+		}
+	}
+catch(Exception $e)
+	{
+		$errorMessage = 'Erreur : '.$e->getMessage();
+		require('view/errorView.php');
+	}
+	
 }
 
 
@@ -41,8 +70,28 @@ function alertComment($id, $postId, $pseudo){
 	$cookieName = "commentId".strval($id);
 	setcookie($cookieName, $id, time() + 365*24*3600, null, null, false, true); 
 
-	header("Location:index.php?id=". $postId);
+	$post = new Post("init", "init");
 
+	$check = $post->checkPost($postId);
+
+try{
+	if($check)
+		{
+			header("Location:index.php?id=". $postId);
+		}
+	else
+		{
+			throw new Exception("Nous n'avons pas retrouvé le billet correspondant.");
+			
+		}
+	}
+catch(Exception $e)
+	{
+		$errorMessage = 'Erreur : '.$e->getMessage();
+		require('view/errorView.php');
+	}
+
+	
 	}
 
 ?>
