@@ -2,12 +2,13 @@
 <html>
 	<head>
 		<title>Blog Jean Forteroche</title>
+
 		<meta charset="utf-8">
 	</head>
 	<body>
 
 		<header>
-			<?= $title?>
+			<?= $title ?>
 		</header>
 
 		<?= $content ?>
@@ -56,10 +57,11 @@
 								<input type="password" name="password"/>
 							</label>
 
-							<label>
+							
 								Connexion automatique : 
-							<input type="checkbox" name="auto"/>
-							</label>
+							<label><input type="radio" name="auto" value="oui" id="oui" />Oui</label>
+							<label><input type="radio" name="auto" value="non" id="non" />Non</label>
+							
 
 							<input type="submit" name="Envoyer" value="Connexion">
 					</form>

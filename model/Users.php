@@ -60,8 +60,9 @@ class Administrator {
 
 	public function connection (){
 
-		session_start();
+		#session_start();
 		$_SESSION['login'] = $this->_login;
+		$_SESSION['Password'] = $this->_password;
 
 	}
 
@@ -79,7 +80,15 @@ class Administrator {
 
 	}
 
-} 
+	public function cancelAuto(){
 
+		$_SESSION = array();
+	session_destroy();
+	setCookie('blogLogin', '', time() );
+	setCookie('blogPassword', '', time() );
+
+	}
+
+} 
 
 
