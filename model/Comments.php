@@ -87,7 +87,7 @@ class Comment {
 	public function listComment($postId){
 
 		$db = $this->dbConnect();
-		$commentList = $db->prepare('SELECT author, content, comment_date, id, validation  FROM comments WHERE post_id = ? ORDER BY id DESC');
+		$commentList = $db->prepare('SELECT author, content, comment_date, id, validation, alert  FROM comments WHERE post_id = ? ORDER BY id DESC');
 		$commentList->execute(array($postId));
 		
 
@@ -108,9 +108,19 @@ class Comment {
 	public function validate($id){
 		
 		$db = $this->dbConnect();
-		$validate = $db->query('UPDATE comments SET validation = 1 WHERE id = '. $id );
+		$validate = $db->prepare('UPDATE comments SET validation = 1 WHERE id = ?');
+		$validate->execute(array($id));
 
 		return $validate;
+	}
+
+	public function alertedComments(){
+
+		$db = $this->dbConnect();
+		$alerted = $db->prepare('SELECT author, content, comment_date, id, validation, alert, post_id FROM comments WHERE alert!= ? ORDER BY alert DESC');
+		$alerted->execute(array(0));
+
+		return $alerted;
 	}
 
 }

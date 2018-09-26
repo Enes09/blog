@@ -7,11 +7,12 @@ function autoConnection ($login, $password){
 
 	$user = new Administrator($login, $password);
 
-	$data = $user->passControl();
+	$data = $user->cookieControl();
+	$data = $data->fetch();
 
 	try 
 		{
-			if(password_verify($user->_password, $data['password']) && $user->_login === $data['login'] )
+			if($_COOKIE['blogLogin'] === $data['login_cookie'] && password_verify( $_SERVER["REMOTE_ADDR"] ,$data['ip_cookie']) )
 				{
 					$user->connection();
 					header('Location:index.php');
@@ -45,11 +46,18 @@ function connection($login, $password, $auto){
 				{
 					$user->connection();
 					#for the automatic connection
-					if($auto === "oui" )
+					if($auto === "on" )
 						{
+							
+							$hashIp = password_hash($_SERVER["REMOTE_ADDR"], PASSWORD_DEFAULT);
+
+							#put the hashed ip in bd with users method
+							$user->tableCookie($hashIp, $login);
+
 							setcookie( "blogLogin", $_SESSION['login'], time() + 365*24*3600, null, null, false, true);
 
-							setcookie( "blogPassword", $_SESSION['Password'], time() + 365*24*3600, null, null, false, true);
+							setcookie( "blogPassword", $hashIp, time() + 365*24*3600, null, null, false, true);
+
 							header('Location:index.php');
 
 						}

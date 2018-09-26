@@ -14,4 +14,4 @@
 
 <?php $content=ob_get_clean(); ?>
 
-<?= require('view/template.php'); ?>
+<?php require('view/template.php'); ?>

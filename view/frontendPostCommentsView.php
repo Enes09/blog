@@ -20,8 +20,9 @@ while($postData = $displayPost->fetch()){
 
 	<div style="border:solid; width: 50%; margin: 2%;">
 		<h3> <?= htmlspecialchars($postData['title']) ?>     </h3>
-		<p>  <?= htmlspecialchars($postData['content']) ?>   </p>
-		<p>  <?= htmlspecialchars($postData['post_date']) ?> </p>
+		<p>  <?= strip_tags($postData['content'], '<p><em><strong>') ?>   </p>
+		<p> Date de mise en ligne : <?= htmlspecialchars($postData['post_date']) ?> </p>
+		<p> Dernière mise à jour : <?= htmlspecialchars($postData['last_update_date']) ?> </p>
 	</div>
 
 <?php
@@ -81,4 +82,4 @@ while($commentsData = $commentsList->fetch()){
 
 <?php $content= ob_get_clean();?>
 
-<?= require('view/template.php') ?>
+<?php require('view/template.php') ?>

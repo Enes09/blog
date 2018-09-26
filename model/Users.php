@@ -83,9 +83,27 @@ class Administrator {
 	public function cancelAuto(){
 
 		$_SESSION = array();
-	session_destroy();
-	setCookie('blogLogin', '', time() );
-	setCookie('blogPassword', '', time() );
+		session_destroy();
+		setCookie('blogLogin', '', time() );
+		setCookie('blogPassword', '', time() );
+
+	}
+
+	public function tableCookie($hashIp, $login){
+
+		$db = $this->dbConnect();
+		$ipControl = $db->prepare('INSERT INTO auto_connection (ip_cookie, login_cookie) VALUES (?,?)');
+		$ipControl->execute(array($hashIp, $login));
+
+		return $ipControl;
+	}
+
+	public function cookieControl(){
+
+		$db = $this->dbConnect();
+		$cookieControl = $db->query('SELECT ip_cookie, login_cookie FROM auto_connection');
+
+		return $cookieControl;
 
 	}
 

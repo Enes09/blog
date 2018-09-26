@@ -46,8 +46,11 @@ class Post {
 	public function delete ($postId){
 
 		$db = $this->dbConnect();
-		$prepare = $db->prepare('DELETE FROM posts WHERE id=?');
-		$postDelete = $prepare->execute(array($postId));
+		$postDelete = $db->prepare('DELETE FROM posts WHERE id=?');
+		$postDelete->execute(array($postId));
+
+		$commentDelete = $db->prepare('DELETE FROM comments WHERE post_id=?');
+		$commentDelete->execute(array($postId));
 		
 		return $postDelete; 
 

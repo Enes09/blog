@@ -49,6 +49,61 @@ if(isset($_SESSION['login'])){
 						}
 					
 				}
+			else if($_GET['action']==="commentsView")
+				{
+					if(isset($_GET['id']))
+						{
+							require('controller/commentBackend.php'); commentsView($_GET['id']); 
+						}
+					else
+						{
+							throw new Exception("Nous n'avons pas retrouver le billet correspondantgg.");
+							
+						}
+					
+				}
+
+			else if($_GET['action']==="deleteComment")
+				{
+					if(isset($_GET['commentId'], $_GET['id']))
+						{
+							require('controller/commentBackend.php'); deleteComment($_GET['commentId'], $_GET['id']);
+						}
+					else
+						{
+							throw new Exception("Nous n'avons pas pu retrouver le commentaire correspondant.");
+							
+						}
+					
+				}
+			else if ($_GET['action']==="validateComment")
+				{
+					if(isset($_GET['commentId'], $_GET['id']))
+						{
+							require('controller/commentBackend.php'); validateComment($_GET['commentId'], $_GET['id']);
+						}
+					else
+						{
+							throw new Exception("Nous n'avons pas pu retrouver le commentaire correspondant.");
+
+						}
+				}
+			else if ($_GET['action']==="alertedCommentView")
+				{
+					if(isset($_GET['delete'], $_GET['commentId']))
+						{
+							require('controller/commentBackend.php'); deleteAlertedComment($_GET['commentId']);
+						}
+					else if(isset($_GET['validate'], $_GET['commentId']))
+						{
+							require('controller/commentBackend.php'); validateAlertedComment($_GET['commentId']);
+						}
+					else
+						{
+							require('controller/commentBackend.php'); alertedCommentView();
+						}
+					
+				}
 		}
 	else 
 		{
@@ -87,11 +142,22 @@ else{
 
 			else if(isset($_GET['connection']))
 				{
-					if($_GET['connection'] === "connect"){
+					if($_GET['connection'] === "connect")
+						{
+							if (isset($_POST['login'], $_POST['password'], $_POST['auto']))
+								{
+									require('controller/usersBackend.php'); connection($_POST['login'], $_POST['password'], $_POST['auto']);
+								}
+							else if(isset($_POST['login'], $_POST['password']))
+								{
+									require('controller/usersBackend.php'); connection($_POST['login'], $_POST['password'], "off");
+								}
+							else
+								{
+									throw new Exception("La connection a échoué.");
+								}
 
-						require('controller/usersBackend.php'); connection($_POST['login'], $_POST['password'], $_POST['auto']);
-
-					}
+						}
 					
 					
 					else{

@@ -2,22 +2,22 @@
 <html>
 	<head>
 		<title>Blog Jean Forteroche</title>
-
 		<meta charset="utf-8">
 	</head>
 	<body>
 
-		<header>
-			<?= $title ?>
-		</header>
+		<header><?=  $title; ?></header>
 
-		<?= $content ?>
+		<?= $content; ?>
 
 		<footer>
 
 
+					<?php
+						if(!isset($_SESSION['login']))
+						{
+					?>
 					<input id="button" type="button" name="show" value="Connexion" />
-
 
 					<script
 					  src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -46,6 +46,8 @@
 
 					</script>
 
+					
+
 					<form id="form" style="display: none; width: 500px; height: 100px; border: solid; text-align: center;" method="POST" action="index.php?connection=connect">
 							<label>
 								Login : 
@@ -58,13 +60,24 @@
 							</label>
 
 							
-								Connexion automatique : 
-							<label><input type="radio" name="auto" value="oui" id="oui" />Oui</label>
-							<label><input type="radio" name="auto" value="non" id="non" />Non</label>
+							<label>Connexion automatique : <input type="checkbox" name="auto" id="oui" /></label>
+							
 							
 
 							<input type="submit" name="Envoyer" value="Connexion">
 					</form>
+					<?php
+						}
+						else
+						{
+					?>
+
+					<a href="index.php?connection=disconnectAuto">Déconnexion</a>
+
+					<?php		
+						}
+
+					?>
 
 
 		</footer>

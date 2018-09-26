@@ -24,7 +24,7 @@ while($postData = $display->fetch()){
 	<p> Dernière date de mis à jour : <?= htmlspecialchars($postData['last_update_date']) ?> </p>
 
 	<a href="index.php?action=delete&amp;postId=<?= $postData['id'] ?>">Supprimer</a><br/>
-	<a href="index.php?id=<?= $postData['id'] ?>">Commentaires</a>
+	<a href="index.php?action=commentsView&amp;id=<?= $postData['id'] ?>">Commentaires</a>
 
 <?php
 	}
@@ -34,4 +34,4 @@ while($postData = $display->fetch()){
 <?php $content= ob_get_clean();?>
 
 
-<?= require('view/template.php'); ?>
+<?php require('view/template.php'); ?>
