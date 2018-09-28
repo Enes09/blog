@@ -3,24 +3,24 @@ require('model/Post.php');
 require('model/Comments.php');
 require('model/Users.php');
 
-function displayPostComments ($postId){
+function displayPostComments ($postId, $page, $postPerPage){
 
 	$post = new Post("init", "init");
 	$displayPost = $post->display($postId);
 
 	$check = $post->checkPost($postId);
 try{
-	if($check)
+	if($check &&  $page>0  && $postPerPage>0)
 		{
 
 			$comments = new Comment("init","init",0);
-			$commentsList = $comments->listComment($postId);
+			$commentsList = $comments->listComment($postId, $page, $postPerPage);
 			require('view/frontendPostCommentsView.php');
 		}
 	else
 		{
 
-			throw new Exception("Nous n'avons pas retrouvé le billet correspondant.");
+			throw new Exception("Nous n'avons pas retrouvé le billet correspondant");
 			
 		}
 	}
@@ -40,12 +40,12 @@ function createComment ($author, $content, $postId){
 	$check = $post->checkPost($postId);
 
 try{
-	if($check)
+	if($check && !empty($author) && !empty($content) && strlen($author)<255 && strlen($content)<255 )
 		{
 
 			$comment->create();
 
-			header("Location:index.php?id=".$postId);
+			header("Location:index.php?id=".$postId."&page=1");
 		}
 	else
 		{
@@ -62,7 +62,7 @@ catch(Exception $e)
 }
 
 
-function alertComment($id, $postId, $pseudo){
+function alertComment($id, $postId, $pseudo, $page){
 
 	$comment = new Comment("init", "init", 0);
 	$comment->alert($id);
@@ -75,9 +75,9 @@ function alertComment($id, $postId, $pseudo){
 	$check = $post->checkPost($postId);
 
 try{
-	if($check)
+	if($check &&  $page>0)
 		{
-			header("Location:index.php?id=". $postId);
+			header("Location:index.php?id=".$postId."&page=".$page);
 		}
 	else
 		{

@@ -6,15 +6,36 @@
 
 <h2>Billets : </h2>
 
-<form method="post" action="index.php?action=addComment&amp;id=<?= $_GET['id'] ?>">
-		<label>Pseudo : <input type="text" name="author"/></label><br/>
-		<label>Message :<textarea name="content"></textarea></label><br/>
+
+<script type="text/javascript">
+	function checkCommentForm(){
+
+		var author = document.getElementById("author");
+		var content = document.getElementById("content");
+
+		if(author.value==="" || content.value==="")
+			{
+				alert("Veuillez remplir tous les champs pour poster un commentaire.");
+				return false;
+				
+			}
+		else
+			{
+				return true;
+			}
+	}
+</script>
+
+
+<form method="post" action="index.php?action=addComment&amp;id=<?= $_GET['id'] ?>" onsubmit= "return checkCommentForm()" >
+		<label>Pseudo : <input id="author" type="text" name="author"  required /></label><br/>
+		<label>Message :<textarea id="content" name="content" required></textarea></label><br/>
 		<input type="submit" name="send" value="Envoyer" />
 </form>
 
 
 <?php 
-
+$alertedPage=0;
 while($postData = $displayPost->fetch()){
 	?>
 
@@ -33,7 +54,24 @@ while($postData = $displayPost->fetch()){
 
 <?php
 
-while($commentsData = $commentsList->fetch()){
+for ($i=1; $i<=$commentsList[1]; $i++)
+	{
+		if($i===$commentsList[2])
+			{
+				$alertedPage=$commentsList[2];
+				?>
+				<p> <?= $commentsList[2] ?> </p>
+			<?php
+			}
+		else
+			{?>
+				<a  href="index.php?id=<?= $_GET['id'] ?>&amp;page=<?= $i ?>"><?= $i ?></a>
+			<?php
+			}
+	} 
+
+
+while($commentsData = $commentsList[0]->fetch()){
 	?>
 
 	<div style="border:solid; width: 50%; margin-top: 2%; margin-left: 10%;" >
@@ -66,8 +104,9 @@ while($commentsData = $commentsList->fetch()){
 			{
 
 		?>
-			<a href="index.php?commentId=<?= $commentsData['id'] ?>&amp;id=<?= $_GET['id'] ?>&amp;pseudo=<?= $commentsData['author'] ?>">Signaler</a>
 
+			<a href="index.php?commentId=<?= $commentsData['id'] ?>&amp;id=<?= $_GET['id'] ?>&amp;pseudo=<?= $commentsData['author'] ?>&amp;page=<?= $alertedPage ?>" id="alertMessage" onclick="return confirm('Êtes vous sûr de vouloir signaler le message de <?= htmlspecialchars($commentsData['author']) ?>')">Signaler</a>
+			
 		<?php
 
 			}
@@ -78,6 +117,21 @@ while($commentsData = $commentsList->fetch()){
 
 <?php
 	}
+
+	for ($i=1; $i<=$commentsList[1]; $i++)
+	{
+		if($i===$commentsList[2])
+			{?>
+				<p> <?= $commentsList[2] ?> </p>
+			<?php
+			}
+		else
+			{?>
+				<a  href="index.php?id=<?= $_GET['id'] ?>&amp;page=<?= $i ?>"><?= $i ?></a>
+			<?php
+			}
+	} 
+
 ?>
 
 <?php $content= ob_get_clean();?>

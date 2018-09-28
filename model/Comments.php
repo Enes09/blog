@@ -84,14 +84,43 @@ class Comment {
 
 	}
 
-	public function listComment($postId){
+	public function listComment($postId, $page, $postPerPage){
 
 		$db = $this->dbConnect();
-		$commentList = $db->prepare('SELECT author, content, comment_date, id, validation, alert  FROM comments WHERE post_id = ? ORDER BY id DESC');
-		$commentList->execute(array($postId));
-		
 
-		return $commentList;
+		$totalComments = $db->prepare('SELECT COUNT(id) AS total FROM comments WHERE post_id=?');
+		$totalComments->execute(array($postId));
+		$totalData=$totalComments->fetch();
+		$total=$totalData['total'];
+
+		$totalPage=ceil($total/$postPerPage);
+
+		if($page>0)
+			{
+				$actualPage = intval($page);
+
+				if($actualPage>$totalPage)
+					{
+						$actualPage=$totalPage;
+					}
+			}
+		else
+			{
+				$actualPage=1;
+			}
+
+		$firstEnter = ($actualPage-1)*$postPerPage;
+		if($firstEnter<0){
+			$firstEnter=0;
+		}
+
+		$commentList = $db->prepare('SELECT author, content, comment_date, id, validation, alert  FROM comments WHERE post_id =:postId  ORDER BY id DESC LIMIT :beginning , :ending');
+		$commentList->bindParam(':postId', $postId, PDO::PARAM_INT );
+		$commentList->bindParam(':beginning', $firstEnter, PDO::PARAM_INT );
+		$commentList->bindParam(':ending', $postPerPage, PDO::PARAM_INT );
+		$commentList->execute();
+		
+		return [$commentList, $totalPage, $actualPage];
 	}
 
 	public function alert($id){
@@ -114,13 +143,44 @@ class Comment {
 		return $validate;
 	}
 
-	public function alertedComments(){
+	public function alertedComments($page, $postPerPage){
 
 		$db = $this->dbConnect();
-		$alerted = $db->prepare('SELECT author, content, comment_date, id, validation, alert, post_id FROM comments WHERE alert!= ? ORDER BY alert DESC');
-		$alerted->execute(array(0));
 
-		return $alerted;
+		$totalComments = $db->prepare('SELECT COUNT(id) AS total FROM comments WHERE alert!=?');
+		$totalComments->execute(array(0));
+		$totalData=$totalComments->fetch();
+		$total=$totalData['total'];
+
+		$totalPage=ceil($total/$postPerPage);
+
+		if($page>0)
+			{
+				$actualPage = intval($page);
+
+				if($actualPage>$totalPage)
+					{
+						$actualPage=$totalPage;
+					}
+			}
+		else
+			{
+				$actualPage=1;
+			}
+
+		$firstEnter = ($actualPage-1)*$postPerPage;
+		if($firstEnter<0){
+			$firstEnter=0;
+		}
+
+
+		$alerted = $db->prepare('SELECT author, content, comment_date, id, validation, alert, post_id FROM comments WHERE alert!=0 ORDER BY alert DESC LIMIT :beginning , :ending');
+		$alerted->bindParam(':beginning', $firstEnter, PDO::PARAM_INT );
+		$alerted->bindParam(':ending', $postPerPage, PDO::PARAM_INT );
+
+		$alerted->execute();
+
+		return [$alerted, $totalPage, $actualPage];
 	}
 
 }

@@ -16,8 +16,8 @@ while($postData = $displayPost->fetch()){
 		<p>  <?= strip_tags($postData['content'], '<p><em><strong>') ?>   </p>
 		<p> Date de mis en ligne : <?= htmlspecialchars($postData['post_date']) ?> </p>
 		<p> Dernière date de mis à jour:  <?= htmlspecialchars($postData['last_update_date']) ?> </p>
-		<a href="index.php?action=updateView&amp;postId=<?= $postData['id'] ?>">Modifier</a>
-		<a href="index.php?action=delete&amp;postId=<?= $postData['id'] ?>">Supprimer</a>
+		<a href="index.php?action=updateView&amp;postId=<?= $postData['id'] ?>&amp;page=1">Modifier</a>
+		<a href="index.php?action=delete&amp;postId=<?= $postData['id'] ?>" onclick="return confirm('Êtes vous sûr de vouloir supprimer le billet : <?= htmlspecialchars($postData['title']) ?>')">Supprimer</a>
 	</div>
 
 <?php
@@ -27,8 +27,26 @@ while($postData = $displayPost->fetch()){
 <h2>Commentaires :</h2>
 
 <?php
+$pageActual=0;
+for ($i=1; $i<=$listComment[1]; $i++)
+	{
+		if($i===$listComment[2])
+			{
+				$pageActual=$listComment[2];
+				?>
+				<p> <?= $listComment[2] ?> </p>
+			<?php
+			}
+		else
+			{?>
+				<a  href="index.php?action=commentsView&amp;id=<?= $_GET['id'] ?>&amp;page=<?= $i ?>"><?= $i ?></a>
+			<?php
+			}
+	} 
 
-while($commentsData = $listComment->fetch()){
+
+
+while($commentsData = $listComment[0]->fetch()){
 	?>
 
 	<div style="border:solid; width: 50%; margin-top: 2%; margin-left: 10%;" >
@@ -40,7 +58,7 @@ while($commentsData = $listComment->fetch()){
 		if($commentsData['validation']){ 
 		?>
 			<p>Vous avez validé ce message.</p>
-			<a href="index.php?action=deleteComment&amp;commentId=<?= $commentsData['id'] ?>&amp;id=<?= $_GET['id'] ?>">Supprimer</a>
+			<a href="index.php?action=deleteComment&amp;commentId=<?= $commentsData['id'] ?>&amp;id=<?= $_GET['id'] ?>&amp;page=<?= $pageActual ?>" onclick="return confirm('Êtes vous sûr de vouloir supprimer le commentaire de : <?= htmlspecialchars($commentsData['author']) ?>')">Supprimer</a>
 		<?php	
 
 			}
@@ -49,27 +67,41 @@ while($commentsData = $listComment->fetch()){
 			{
 		?>			
 			<p>Ce message a été signaler <?= $commentsData['alert'] ?> fois.</p>
-			<a href="index.php?action=deleteComment&amp;commentId=<?= $commentsData['id'] ?>&amp;id=<?= $_GET['id'] ?>">Supprimer</a>
-			<a href="index.php?action=validateComment&amp;commentId=<?= $commentsData['id'] ?>&amp;id=<?= $_GET['id'] ?>">Valider</a>
+			<a href="index.php?action=deleteComment&amp;commentId=<?= $commentsData['id'] ?>&amp;id=<?= $_GET['id'] ?>&amp;page=<?= $pageActual ?>" onclick="return confirm('Êtes vous sûr de vouloir supprimer le commentaire de : <?= htmlspecialchars($commentsData['author']) ?>')">Supprimer</a>
+			<a href="index.php?action=validateComment&amp;commentId=<?= $commentsData['id'] ?>&amp;id=<?= $_GET['id'] ?>&amp;page=<?= $pageActual ?>" onclick="return confirm('Êtes vous sûr de vouloir valider le commentaire de : <?= htmlspecialchars($commentsData['author']) ?>')">Valider</a>
 
 		<?php
 			}
 		else{
 			?>
 
-			<a href="index.php?action=deleteComment&amp;commentId=<?= $commentsData['id'] ?>&amp;id=<?= $_GET['id'] ?>">Supprimer</a>
-			<a href="index.php?action=validateComment&amp;commentId=<?= $commentsData['id'] ?>&amp;id=<?= $_GET['id'] ?>">Valider</a>
+			<a href="index.php?action=deleteComment&amp;commentId=<?= $commentsData['id'] ?>&amp;id=<?= $_GET['id'] ?>&amp;page=<?= $pageActual ?>" onclick="return confirm('Êtes vous sûr de vouloir supprimer le commentaire de : <?= htmlspecialchars($commentsData['author']) ?>')">Supprimer</a>
+			<a href="index.php?action=validateComment&amp;commentId=<?= $commentsData['id'] ?>&amp;id=<?= $_GET['id'] ?>&amp;page=<?= $pageActual ?>" onclick="return confirm('Êtes vous sûr de vouloir valider le commentaire de : <?= htmlspecialchars($commentsData['author']) ?>')">Valider</a>
 		<?php	
 		}
 
 		?>
 			
-			
-
+		
 	</div>
 
 <?php
 	}
+	for ($i=1; $i<=$listComment[1]; $i++)
+	{
+		if($i===$listComment[2])
+			{
+				$pageActual=$listComment[2];
+				?>
+				<p> <?= $listComment[2] ?> </p>
+			<?php
+			}
+		else
+			{?>
+				<a  href="index.php?action=commentsView&amp;id=<?= $_GET['id'] ?>&amp;page=<?= $i ?>"><?= $i ?></a>
+			<?php
+			}
+	} 
 ?>
 
 <?php $content= ob_get_clean();?>

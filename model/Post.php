@@ -66,19 +66,41 @@ class Post {
 
 	}
 
-	public function postList(){
+	public function postList($page, $postPerPage){
  
 		$db = $this->dbConnect();
-		$postList = $db->query('SELECT id,title, content, post_date, last_update_date FROM posts ORDER BY post_date DESC ');
 		
+		$totalPost=$db->query('SELECT COUNT(id) AS total FROM posts');
+		$totalData=$totalPost->fetch();
+		$total=$totalData['total'];
+		
+		#$postPerPage=3;
+	
+		$totalPage=ceil($total/$postPerPage);
 
-		return $postList;
+		if($page>0)
+			{
+				$actualPage = intval($page);
 
-		#la partie en dessous devra être effectuer dans la vue
+				if($actualPage>$totalPage)
+					{
+						$actualPage=$totalPage;
+					}
+			}
+		else
+			{
+				$actualPage=1;
+			}
 
-		#while($data = $postList->fetch()){
-		#	echo "<p>" . $data['title'] . $data['content']. $data['post_date']. $data['last_update_date']. "</p> ";
-		#}
+		$firstEnter = ($actualPage-1)*$postPerPage;
+	
+						$postList = $db->prepare('SELECT id,title, content, post_date, last_update_date FROM posts ORDER BY post_date DESC LIMIT :beginning , :ending  ');
+						$postList->bindParam(':beginning', $firstEnter, PDO::PARAM_INT );
+						$postList->bindParam(':ending', $postPerPage, PDO::PARAM_INT );
+						$postList->execute();
+
+		return [$postList,$totalPage,$actualPage];
+				
 
 	}
 
@@ -92,10 +114,7 @@ class Post {
 
 		return $displayPost;
 
-		# fetch en vue ...
-		#while($data = $postList->fetch()){
-		#	echo "<p>" . $data['title'] . $data['content'] ."</p> ";
-		#}
+		
 
 	}
 
@@ -120,9 +139,14 @@ class Post {
 	
 }
 /*
-$title="test1";
-$content="test1";
-$post = new Post($title, $content);
+$test = new Post("init", "init");
+$deney = $test->postList(1,3);
+while($data = $deney->fetch()){
+	echo "<div style='border:solid;'>";
+	echo $data['title']."<br/>";
+	echo $data['content']."<br/>";
+	echo $data['post_date']."<br/>";
+	echo "</div>";
 
-$post->update(10);
+}
 */

@@ -7,7 +7,7 @@
 <a href="index.php?action=postCreationView" style="border: solid; width: 100px; height: 100px; float: left; margin: 20px;" >Créer de nouveau billets</a>
 <a href="index.php?action=postListView" style="border: solid; width: 100px; height: 100px; float: left; margin: 20px;" >Voir les billets</a>
 
-<a href="index.php?action=alertedCommentView" style="border: solid; width: 100px; height: 100px; float: left; margin: 20px;" >Voir les commentaires alerter</a>
+<a href="index.php?action=alertedCommentView&amp;page=1" style="border: solid; width: 100px; height: 100px; float: left; margin: 20px;" >Voir les commentaires alerter</a>
 
 <?php $content = ob_get_clean(); ?>
 

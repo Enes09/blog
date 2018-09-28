@@ -26,11 +26,27 @@ if(isset($_SESSION['login'])){
 
 			else if($_GET['action']==="postListView") 
 				{
-					require('controller/postBackend.php'); postListView();
+					if(isset($_GET['page']))
+						{
+							require('controller/postBackend.php'); postListView($_GET['page'],3);
+						}
+					else
+						{
+							require('controller/postBackend.php'); postListView(1,3);
+						}
+					
 				}
 			else if($_GET['action']==="delete" && isset($_GET['postId']))
 				{	
-					require('controller/postBackend.php'); postDelete($_GET['postId']);
+					if(isset( $_GET['page']))
+						{
+							require('controller/postBackend.php'); postDelete($_GET['postId'], $_GET['page']);
+						}
+					else
+						{
+							require('controller/postBackend.php'); postDelete($_GET['postId'], 1);
+						}
+					
 				}
 			else if($_GET['action']==="updateView" && isset($_GET['postId']))
 				{
@@ -40,7 +56,15 @@ if(isset($_SESSION['login'])){
 				{
 					if(isset($_POST['updateTitle'], $_POST['updateContent'], $_GET['postId']))
 						{
-							require('controller/postBackend.php'); postUpdate($_POST['updateTitle'], $_POST['updateContent'],  $_GET['postId']);
+							if(isset($_GET['page']))
+								{
+									require('controller/postBackend.php'); postUpdate($_POST['updateTitle'], $_POST['updateContent'],  $_GET['postId'], $_GET['page']);
+								}
+							else
+								{
+									require('controller/postBackend.php'); postUpdate($_POST['updateTitle'], $_POST['updateContent'],  $_GET['postId'], 1);
+								}
+							
 						}
 					else
 						{
@@ -53,7 +77,15 @@ if(isset($_SESSION['login'])){
 				{
 					if(isset($_GET['id']))
 						{
-							require('controller/commentBackend.php'); commentsView($_GET['id']); 
+							if(isset($_GET['page']))
+								{
+									require('controller/commentBackend.php'); commentsView($_GET['id'], $_GET['page'], 10);
+								}
+							else
+								{
+									require('controller/commentBackend.php'); commentsView($_GET['id'], 1, 10);
+								}	
+							 
 						}
 					else
 						{
@@ -67,7 +99,15 @@ if(isset($_SESSION['login'])){
 				{
 					if(isset($_GET['commentId'], $_GET['id']))
 						{
-							require('controller/commentBackend.php'); deleteComment($_GET['commentId'], $_GET['id']);
+							if(isset($_GET['page']))
+								{
+									require('controller/commentBackend.php'); deleteComment($_GET['commentId'], $_GET['id'], $_GET['page'], 10);
+								}
+							else
+								{
+									require('controller/commentBackend.php'); deleteComment($_GET['commentId'], $_GET['id'], 1, 10);
+								}
+							
 						}
 					else
 						{
@@ -80,7 +120,15 @@ if(isset($_SESSION['login'])){
 				{
 					if(isset($_GET['commentId'], $_GET['id']))
 						{
-							require('controller/commentBackend.php'); validateComment($_GET['commentId'], $_GET['id']);
+							if(isset($_GET['page']))
+								{
+									require('controller/commentBackend.php'); validateComment($_GET['commentId'], $_GET['id'],$_GET['page'], 10 );
+								}
+							else
+								{
+									require('controller/commentBackend.php'); validateComment($_GET['commentId'], $_GET['id'], 1, 10 );
+								}
+							
 						}
 					else
 						{
@@ -92,15 +140,39 @@ if(isset($_SESSION['login'])){
 				{
 					if(isset($_GET['delete'], $_GET['commentId']))
 						{
-							require('controller/commentBackend.php'); deleteAlertedComment($_GET['commentId']);
+							if(isset($_GET['page']))
+								{
+									require('controller/commentBackend.php'); deleteAlertedComment($_GET['commentId'], $_GET['page']);
+								}
+							else
+								{
+									require('controller/commentBackend.php'); deleteAlertedComment($_GET['commentId'], 1);
+								}
+							
 						}
 					else if(isset($_GET['validate'], $_GET['commentId']))
 						{
-							require('controller/commentBackend.php'); validateAlertedComment($_GET['commentId']);
+							if(isset($_GET['page']))
+								{
+									require('controller/commentBackend.php'); validateAlertedComment($_GET['commentId'], $_GET['page']);
+								}
+							else
+								{
+									require('controller/commentBackend.php'); validateAlertedComment($_GET['commentId'], 1);
+								}
+							
 						}
 					else
 						{
-							require('controller/commentBackend.php'); alertedCommentView();
+							if(isset($_GET['page']))
+								{
+									require('controller/commentBackend.php'); alertedCommentView($_GET['page'], 10);
+								}
+							else
+								{
+									require('controller/commentBackend.php'); alertedCommentView(1, 10);
+								}
+							
 						}
 					
 				}
@@ -137,7 +209,7 @@ else{
 			#check if commentId parameter exist.
 			if( isset($_GET['commentId']) )
 				{
-							require('controller/commentFrontend.php'); alertComment($_GET['commentId'], $_GET['id'], $_GET['pseudo']);
+							require('controller/commentFrontend.php'); alertComment($_GET['commentId'], $_GET['id'], $_GET['pseudo'], $_GET['page']);
 				}
 
 			else if(isset($_GET['connection']))
@@ -186,14 +258,22 @@ else{
 
 						}
 					
-					require('controller/commentFrontend.php'); displayPostComments($_GET['id']);
+					require('controller/commentFrontend.php'); displayPostComments($_GET['id'], $_GET['page'], 10);
 						
 					
 				}
 
 			else
 				{
-					require('controller/postFrontend.php'); postsList();
+					if(isset($_GET['page']))
+						{
+							require('controller/postFrontend.php'); postsList($_GET['page'], 3);
+						}
+					else
+						{
+							require('controller/postFrontend.php'); postsList(1, 3);
+						}
+					
 				}
 		}
 		catch(Exception $e)

@@ -44,19 +44,35 @@
 						    }
 						});
 
+						function checkConnectionForm(){
+
+							var login = document.getElementById("login");
+							var password = document.getElementById("password");
+
+							if(login.value==="" || password.value==="")
+								{
+									alert("Veuillez remplir tous les champs pour vous connecter");
+									return false;
+								}
+							else
+								{
+									return true
+								}
+						} 
+						
 					</script>
 
 					
 
-					<form id="form" style="display: none; width: 500px; height: 100px; border: solid; text-align: center;" method="POST" action="index.php?connection=connect">
+					<form id="form" style="display: none; width: 500px; height: 100px; border: solid; text-align: center;" method="POST" action="index.php?connection=connect" onsubmit="return checkConnectionForm()">
 							<label>
 								Login : 
-								<input type="text" name="login"/><br/>
+								<input id="login" type="text" name="login" required/><br/>
 							</label>
 
 							<label>
 								Mot de passe : 
-								<input type="password" name="password"/>
+								<input id="password" type="password" name="password" required />
 							</label>
 
 							

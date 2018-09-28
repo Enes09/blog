@@ -8,7 +8,25 @@
 
 <?php
 
-while($commentsData = $alerted->fetch()){
+$pageActual=0;
+for ($i=1; $i<=$alerted[1]; $i++)
+	{
+		if($i===$alerted[2])
+			{
+				$pageActual=$alerted[2];
+				?>
+				<p> <?= $alerted[2] ?> </p>
+			<?php
+			}
+		else
+			{?>
+				<a  href="index.php?action=alertedCommentView&amp;page=<?= $i ?>"><?= $i ?></a>
+			<?php
+			}
+	} 
+
+
+while($commentsData = $alerted[0]->fetch()){
 	?>
 
 	<div style="border:solid; width: 50%; margin-top: 2%; margin-left: 10%;" >
@@ -21,7 +39,7 @@ while($commentsData = $alerted->fetch()){
 		if($commentsData['validation']){ 
 		?>
 			<p>Vous avez validé ce message.</p>
-			<a href="index.php?action=alertedCommentView&amp;delete&amp;commentId=<?= $commentsData['id'] ?>">Supprimer</a>
+			<a href="index.php?action=alertedCommentView&amp;delete&amp;commentId=<?= $commentsData['id'] ?>&amp;page=<?= $pageActual ?>" onclick="return confirm('Êtes vous sûr de vouloir supprimer le billet : <?= htmlspecialchars($commentsData['author']) ?>')">Supprimer</a>
 		<?php	
 
 			}
@@ -30,25 +48,42 @@ while($commentsData = $alerted->fetch()){
 			{
 		?>			
 			<p>Ce message a été signaler <?= $commentsData['alert'] ?> fois.</p>
-			<a href="index.php?action=alertedCommentView&amp;delete&amp;commentId=<?= $commentsData['id'] ?>">Supprimer</a>
-			<a href="index.php?action=alertedCommentView&amp;validate&amp;commentId=<?= $commentsData['id'] ?>">Valider</a>
+			<a href="index.php?action=alertedCommentView&amp;delete&amp;commentId=<?= $commentsData['id'] ?>&amp;page=<?= $pageActual ?>" onclick="return confirm('Êtes vous sûr de vouloir supprimer le billet : <?= htmlspecialchars($commentsData['author']) ?>')">Supprimer</a>
+			<a href="index.php?action=alertedCommentView&amp;validate&amp;commentId=<?= $commentsData['id'] ?>&amp;page=<?= $pageActual ?>" onclick="return confirm('Êtes vous sûr de vouloir valider le billet : <?= htmlspecialchars($commentsData['author']) ?>')">Valider</a>
 		<?php
 			}
 		else{
 			?>
 
-			<a href="index.php?action=alertedCommentView&amp;delete&amp;commentId=<?= $commentsData['id'] ?>">Supprimer</a>
-			<a href="index.php?action=alertedCommentView&amp;validate&amp;commentId=<?= $commentsData['id'] ?>">Valider</a>
+			<a href="index.php?action=alertedCommentView&amp;delete&amp;commentId=<?= $commentsData['id'] ?>&amp;page=<?= $pageActual ?>" onclick="return confirm('Êtes vous sûr de vouloir supprimer le billet : <?= htmlspecialchars($commentsData['author']) ?>')">Supprimer</a>
+			<a href="index.php?action=alertedCommentView&amp;validate&amp;commentId=<?= $commentsData['id'] ?>&amp;page=<?= $pageActual ?>" onclick="return confirm('Êtes vous sûr de vouloir valider le billet : <?= htmlspecialchars($commentsData['author']) ?>')">Valider</a>
 		<?php	
 		}
 
 		?>
 			
 	</div>
-	<a href="index.php?action=commentsView&amp;id=<?= $commentsData['post_id'] ?>">Voir le billet</a>
+	<a href="index.php?action=commentsView&amp;id=<?= $commentsData['post_id'] ?>&amp;page=1">Voir le billet</a>
 
 <?php
 	}
+
+$pageActual=0;
+for ($i=1; $i<=$alerted[1]; $i++)
+	{
+		if($i===$alerted[2])
+			{
+				$pageActual=$alerted[2];
+				?>
+				<p> <?= $alerted[2] ?> </p>
+			<?php
+			}
+		else
+			{?>
+				<a  href="index.php?action=alertedCommentView&amp;page=<?= $i ?>"><?= $i ?></a>
+			<?php
+			}
+	} 
 ?>
 
 <?php $content= ob_get_clean();?>
