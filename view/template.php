@@ -1,23 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 	<head>
 		<title>Blog Jean Forteroche</title>
 		<meta charset="utf-8">
-	</head>
-	<body>
+    	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">	
+    	<link rel="stylesheet" type="text/css" href="public/frontend.css">
 
-		<header><?=  $title; ?></header>
+    </head>
+	<body >
+
+		<header>
+			<?=  $title; ?>
+			<img src="public/image/headerAlaska.jpg">	
+		</header>
 
 		<?= $content; ?>
 
-		<footer>
+		<footer class="row">
 
 
 					<?php
 						if(!isset($_SESSION['login']))
 						{
 					?>
-					<input id="button" type="button" name="show" value="Connexion" />
+					<input id="button" type="button" name="show" value="Connexion" class="offset-lg-10 offset-8" />
+
+					<div class="row offset-1 offset-lg-1">
+					<p class="offset-lg-1 offset-1">Tel : 01 02 03 04 05</p>
+					<p class="offset-lg-1 offset-1">mail : jeanforteroche@serveur.com</p>
+					</div>
 
 					<script
 					  src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -82,6 +94,7 @@
 
 							<input type="submit" name="Envoyer" value="Connexion">
 					</form>
+
 					<?php
 						}
 						else
@@ -89,6 +102,7 @@
 					?>
 
 					<a href="index.php?connection=disconnectAuto">Déconnexion</a>
+
 
 					<?php		
 						}

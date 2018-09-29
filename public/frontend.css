@@ -1,0 +1,60 @@
+article > header{
+	text-align: center;
+}
+
+article > div{
+
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border: solid 1px #f7f7f7;
+	box-shadow: 5px 5px 5px #f7f7f7; 
+	border-radius: 10px;
+
+}
+
+div > header{
+	text-align: center;
+}
+
+h3{
+	text-decoration: underline;
+}
+#pagination1 > p, #pagination2 >p{
+	text-align: center;
+	width: 20px;
+	float: left;
+	margin: 5px;
+	color: black;
+	border-bottom: solid 1px black;
+}
+
+#pagination1 > a, #pagination2 >a{
+	text-align: center;
+	width: 20px;
+	float: left;
+	margin: 5px; 
+	border: solid 1px #0086a8; 
+	background: #0086a8;
+	color: white;
+	border-radius: 4px;
+}
+
+article{
+	clear: both;
+}
+
+body > footer {
+	color: white;
+	border-top: solid 1px;
+	border-radius: 20px;
+	background: #0086a8;
+}
+
+#button{
+	margin-top: 20px;
+	border-radius: 10px;
+	border: solid 1px white;
+	color: white;
+	background: #0086a8;
+	box-shadow: 2px 2px 2px #dedfe0;
+}
