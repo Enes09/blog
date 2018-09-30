@@ -6,18 +6,18 @@
     	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">	
     	<link rel="stylesheet" type="text/css" href="public/frontend.css">
-
+    	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     </head>
-	<body >
+	<body id="body">
 
-		<header>
+		<header  id="header">
 			<?=  $title; ?>
-			<img src="public/image/headerAlaska.jpg">	
+			<p>Billet simple pour l'Alaska <i class="fas fa-plane-departure"></i> </p>
 		</header>
 
 		<?= $content; ?>
 
-		<footer class="row">
+		<footer >
 
 
 					<?php
@@ -28,7 +28,7 @@
 
 					<div class="row offset-1 offset-lg-1">
 					<p class="offset-lg-1 offset-1">Tel : 01 02 03 04 05</p>
-					<p class="offset-lg-1 offset-1">mail : jeanforteroche@serveur.com</p>
+					<p class="offset-lg-1 offset-1">E-mail : jeanforteroche@serveur.com</p>
 					</div>
 
 					<script
@@ -40,19 +40,25 @@
 					<script type="text/javascript">
 
 						document.getElementById("button").addEventListener('click', function(){
+
 							document.getElementById("form").style.display = "block";
+							$("article").css("opacity", 0.1);
+							document.getElementById("form").style.opacity = 1;
 							document.getElementById("button").style.display = "none";
+							
 						})
 
 						$(document).mouseup(function(e) 
 						{
 						    var container = $("#form");
 						    var button = $("#button");
+						   
 
 						    if (!container.is(e.target) && container.has(e.target).length === 0) 
 						    {
 						        container.hide();
 						        button.show();
+						        $("article").css("opacity", 1);
 						    }
 						});
 
@@ -76,23 +82,23 @@
 
 					
 
-					<form id="form" style="display: none; width: 500px; height: 100px; border: solid; text-align: center;" method="POST" action="index.php?connection=connect" onsubmit="return checkConnectionForm()">
+					<form id="form" class="offset-1 col-10 offset-1 offset-lg-5 col-lg-2  position-absolute" method="POST" action="index.php?connection=connect" onsubmit="return checkConnectionForm()">
 							<label>
 								Login : 
-								<input id="login" type="text" name="login" required/><br/>
-							</label>
+								<input id="login" type="text" name="login" required/>
+							</label><br/>
 
 							<label>
 								Mot de passe : 
 								<input id="password" type="password" name="password" required />
-							</label>
+							</label><br/>
 
 							
-							<label>Connexion automatique : <input type="checkbox" name="auto" id="oui" /></label>
+							<label>Connexion automatique : <input type="checkbox" name="auto" id="oui" /></label><br/>
 							
 							
 
-							<input type="submit" name="Envoyer" value="Connexion">
+							<input id="formButton" type="submit" name="Envoyer" value="Connexion">
 					</form>
 
 					<?php

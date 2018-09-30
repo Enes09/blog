@@ -1,5 +1,6 @@
 article > header{
 	text-align: center;
+
 }
 
 article > div{
@@ -17,8 +18,10 @@ div > header{
 }
 
 h3{
-	text-decoration: underline;
+	font-size: 1.5em;
+	color: #91bdff;
 }
+
 #pagination1 > p, #pagination2 >p{
 	text-align: center;
 	width: 20px;
@@ -41,6 +44,8 @@ h3{
 
 article{
 	clear: both;
+	margin-top: 20px;
+	margin-bottom: 20px; 
 }
 
 body > footer {
@@ -48,6 +53,7 @@ body > footer {
 	border-top: solid 1px;
 	border-radius: 20px;
 	background: #0086a8;
+	margin-top: 20px;
 }
 
 #button{
@@ -57,4 +63,63 @@ body > footer {
 	color: white;
 	background: #0086a8;
 	box-shadow: 2px 2px 2px #dedfe0;
+}
+
+#header{
+	background: url(image/headerAlaska.jpg);
+	height: 200px;
+	color: white;
+	text-shadow: 2px 2px 2px #0086a8;
+	font-size: 2.5em;
+	text-align: center;
+	box-shadow: 10px 10px 10px #0086a8;
+}
+
+#billetFrontendPostList{
+	font-size: 1.5em;
+	margin-top: 20px;
+	color: #91bdff;
+}
+
+footer > a {
+	border: solid 1px #0086a8;
+	border-radius: 10px;
+	text-align: center;
+	color: #0086a8;
+	background: white;
+	box-shadow: 2px 2px 2px #0086a8;
+}
+
+#comments{
+	margin-bottom: 10px;
+}
+
+form{
+	display: none;
+	top: 50%;
+	color: #0086a8;
+	background: white;
+	width: 250px;
+	height: 200px;
+	border: solid 1px #0086a8;
+	border-radius: 10px; 
+}
+
+#formButton{
+	border: solid 1px #0086a8;
+	border-radius: 10px;
+	text-align: center;
+	color: #0086a8;
+	background: white;
+	box-shadow: 2px 2px 2px #0086a8;
+}
+
+#login, #password{
+	border-radius: 5PX;
+}
+
+a#arrow{
+	background: white;
+	border: none;
+	color: #0086a8;
 }
