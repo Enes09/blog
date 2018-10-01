@@ -5,7 +5,7 @@
 <h2 id="billetFrontendPostList" class="row offset-1 offset-lg-1 ">Billets : </h2>
 
 <div id="pagination1" class="row offset-lg-5 offset-2">
-<a id="arrow" href="index.php?page=<?= $listOfPost[2]-1 ?>"> < </a>
+<a id="arrow" href="index.php?page=<?= pageControlMinus($listOfPost); ?>"> < </a>
 <?php 
 
 $actualPage=0;
@@ -28,7 +28,7 @@ for ($i=1; $i<=$listOfPost[1]; $i++)
 			}
 				
 	} ?>
-<a id="arrow" href="index.php?page=<?= $listOfPost[2]+1 ?>"> > </a>
+<a id="arrow" href="index.php?page=<?= pageControlPlus($listOfPost); ?>"> > </a>
 </div>
 	<?php
 
@@ -57,25 +57,44 @@ while($postData = $listOfPost[0]->fetch()){
 <?php
 
 	}
+	function pageControlMinus($listOfPost){
+		if($listOfPost[2] === 1){
+			return 1;
+		}
+		else{
+			return $listOfPost[2]-1;
+		}
+	}
 ?>
 <div id="pagination2" class="row offset-lg-5 offset-2">
-	<a id="arrow" href="index.php?page=<?= $listOfPost[2]-1 ?>"> < </a>
+	<a id="arrow" href="index.php?page=<?= pageControlMinus($listOfPost); ?>"> < </a>
 <?php
 	for ($i=1; $i<=$listOfPost[1]; $i++)
 	{
-		if($i===$listOfPost[2])
+		if($i===$listOfPost[2] )
 			{?>
 				<p> <?= $listOfPost[2] ?> </p>
 			<?php
 			}
+
 		else
 			{?>
 				<a  href="index.php?page=<?= $i ?>"><?= $i ?></a>
 			<?php
 			}
-	} 
+	}
+	
+	function pageControlPlus($listOfPost){
+
+		if($listOfPost[2] === $listOfPost[1]){
+			return $listOfPost[1];
+		}
+		else{
+			return $listOfPost[2]+1;
+		}
+	}
 ?>
-<a id="arrow" href="index.php?page=<?= $listOfPost[2]+1 ?>"> > </a>
+<a id="arrow" href="index.php?page=<?= pageControlPlus($listOfPost); ?>"> > </a>
 </div>
 <?php $content= ob_get_clean();?>
 

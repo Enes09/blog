@@ -17,8 +17,9 @@
 
 		<?= $content; ?>
 
-		<footer >
+		<footer  >
 
+					
 
 					<?php
 						if(!isset($_SESSION['login']))
@@ -83,6 +84,7 @@
 					
 
 					<form id="form" class="offset-1 col-10 offset-1 offset-lg-5 col-lg-2  position-absolute" method="POST" action="index.php?connection=connect" onsubmit="return checkConnectionForm()">
+
 							<label>
 								Login : 
 								<input id="login" type="text" name="login" required/>
@@ -97,7 +99,6 @@
 							<label>Connexion automatique : <input type="checkbox" name="auto" id="oui" /></label><br/>
 							
 							
-
 							<input id="formButton" type="submit" name="Envoyer" value="Connexion">
 					</form>
 
@@ -107,7 +108,7 @@
 						{
 					?>
 
-					<a href="index.php?connection=disconnectAuto">Déconnexion</a>
+					<a id="deconnection" class="offset-lg-11 position-absolute" href="index.php?connection=disconnectAuto">Déconnexion</a>
 
 
 					<?php		

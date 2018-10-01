@@ -73,6 +73,7 @@ body > footer {
 	font-size: 2.5em;
 	text-align: center;
 	box-shadow: 10px 10px 10px #0086a8;
+	margin-bottom: 20px;
 }
 
 #billetFrontendPostList{
@@ -94,7 +95,7 @@ footer > a {
 	margin-bottom: 10px;
 }
 
-form{
+form#form{
 	display: none;
 	top: 50%;
 	color: #0086a8;
@@ -121,5 +122,113 @@ form{
 a#arrow{
 	background: white;
 	border: none;
+	color: #0086a8;
+}
+
+/* we begin here for the comments frontend view*/
+.returnPost{
+	border: solid 1px #0086a8;
+	border-radius: 10px;
+	text-align: center;
+	color: #0086a8;
+	background: white;
+	box-shadow: 2px 2px 2px #0086a8;
+}
+
+form#commentsForm{
+	margin-top: 20px;
+	border: solid 1px #0086a8;
+	border-radius: 10px;
+	box-shadow: 2px 2px 2px #0086a8;
+}
+
+#submitComment{
+	border: solid 1px #0086a8;
+	border-radius: 10px;
+	text-align: center;
+	color: #0086a8;
+	background: white;
+	box-shadow: 2px 2px 2px #0086a8;
+	margin-bottom: 10px;
+}
+
+textarea#content{
+	width: 350px;
+	border-radius: 10px;
+}
+
+@media screen and (max-width: 640px){
+	textarea#content{
+	width: 240px;
+	}
+}
+
+input#author{
+	border-radius: 10px;
+}
+
+form#commentsForm > label{
+	color:#0086a8;
+}
+
+.billet{
+	margin-top: 20px;
+	color: #0086a8;
+}
+
+.commentH2{
+	margin-top: 100px;
+	color: #0086a8;
+}
+
+#comments{
+	border: solid 1px #0086a8;
+	border-radius: 10px;
+}
+
+#comments >div> p{
+	margin-bottom: 0px;
+}
+#validationMsg{
+	color: #a8ffb9;
+}
+
+#alertMsg{
+	color: #f98989;
+}
+
+#commentDate{
+	color: #f7ca27;
+}
+
+div#comments > div > a{
+	text-align: right;
+}
+
+/* we begin here for the home backend view  */
+
+#deconnection{
+	bottom:20px;
+
+}
+
+.homeLinks{
+	font-size: 2.5em;
+	color: #0086a8;
+	text-align: center;
+	border: solid 1px #0086a8;
+	border-radius: 10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	height: 100px;
+	line-height: 90px;
+	box-shadow: 2px 2px 2px #0086a8;
+}
+
+.homeLinks:hover{
+	text-decoration: none;
+}
+
+.homeTitle{
 	color: #0086a8;
 }
