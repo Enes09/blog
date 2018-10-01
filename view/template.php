@@ -108,7 +108,7 @@
 						{
 					?>
 
-					<a id="deconnection" class="offset-lg-11 position-absolute" href="index.php?connection=disconnectAuto">Déconnexion</a>
+					<a id="deconnection" class="offset-lg-11 position-fixed" href="index.php?connection=disconnectAuto">Déconnexion</a>
 
 
 					<?php		
