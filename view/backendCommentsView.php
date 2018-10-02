@@ -16,7 +16,7 @@ while($postData = $displayPost->fetch()){
 
 
 
-	<article id="backendPostLits" class="row">
+	<article  class="row">
 		<div class="offset-1 col-10 offset-1 ">
 
 			<header>

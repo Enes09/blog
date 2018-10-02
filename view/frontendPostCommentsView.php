@@ -60,8 +60,8 @@ while($postData = $displayPost->fetch()){
 	}
 ?>
 <form id="commentsForm" class="offset-lg-1 col-lg-3 offset-1 col-10 offset-1 " method="post" action="index.php?action=addComment&amp;id=<?= $_GET['id'] ?>" onsubmit= "return checkCommentForm()" >
-		<label>Pseudo : <br/><input id="author" type="text" name="author" required /></label><br/>
-		<label>Message :<br/><textarea  id="content" name="content" required></textarea></label><br/>
+		<label>Pseudo : <br/><input id="author" type="text" name="author" required maxlength="254"/></label><br/>
+		<label>Message :<br/><textarea  id="content" name="content" required maxlength="254"></textarea></label><br/>
 		<input class="offset-lg-10 offset-9" id="submitComment" type="submit" name="send" value="Envoyer" />
 </form>
 <h2 class="offset-lg-1 commentH2">Commentaires :</h2>

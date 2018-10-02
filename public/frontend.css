@@ -313,9 +313,7 @@ div#comments > div > a{
 }
 
 @media screen and (max-width: 640px){
-	#backendPostLits{
-		height: 350px;
-	}
+	
 
 	#backendPostLits > div > footer > a{
 		margin-top: 10px;
