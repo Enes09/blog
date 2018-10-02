@@ -7,6 +7,8 @@
 
 <h2 id="billetFrontendPostList" class="row offset-1 offset-lg-1 " >Billets : </h2>
 
+<script type="text/javascript"> document.getElementById("header").style.marginTop="-30px"; </script>
+
 <?php 
 
 while($postData = $displayPost->fetch()){

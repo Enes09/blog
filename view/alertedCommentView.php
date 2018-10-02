@@ -86,7 +86,7 @@ while($commentsData = $alerted[0]->fetch()){
 		}
 
 		?>
-		<a id="showPost" class="row offset-lg-1 col-lg-2 offset-lg-9 offset-1 col-10 offset-1 showPost" href="index.php?action=commentsView&amp;id=<?= $commentsData['post_id'] ?>&amp;page=1">Voir le billet <i class="fas fa-arrow-circle-right"></i> </a>
+		<a id="showPost" class="row offset-lg-1 col-lg-2 offset-lg-9 offset-1 col-10 offset-1 offset-md-8 col-md-4 showPost" href="index.php?action=commentsView&amp;id=<?= $commentsData['post_id'] ?>&amp;page=1">Voir le billet <i class="fas fa-arrow-circle-right"></i> </a>
 		
 	</div>
 	

@@ -322,3 +322,44 @@ div#comments > div > a{
 	}
 
 }
+
+/* we begin here the postUpdateView -->*/
+.updateText{
+	color: #0086a8;
+	font-size: 1.5em;
+}
+
+.title{
+	margin-top: 50px;
+	border: solid 1px #0086a8;
+	border-radius: 10px;
+}
+
+.modify, .commentShow, .delete{
+	border: solid 1px #0086a8;
+	border-radius: 10px;
+	text-align: center;
+	color: #0086a8;
+	background: white;
+	box-shadow: 2px 2px 2px #0086a8;
+	margin-bottom: 10px;
+}
+
+ .delete{
+	font-size: 1.5em;
+}
+
+@media screen and (max-width: 640px){
+	.delete{
+		font-size: 1.1em;
+		text-align: left;
+	}
+}
+
+.commentShow{
+	font-size: 1.1em;
+}
+
+.updateP{
+	color: #0086a8;
+}
